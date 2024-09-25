@@ -1,4 +1,4 @@
-// SemanalScreen.js
+// DiarioScreen.js
 import React from "react";
 import {
   View,
@@ -6,20 +6,20 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
-  Alert,
 } from "react-native";
-import { useClients } from "../components/clientcontext"; // Importar el hook
+import { useClients } from "../components/clientcontext";
 import { IconosPagos } from "../components/iconos";
+import { Alert } from "react-native";
 import { formatearMonto } from "../components/dinero";
 
-const SemanalScreen = ({ navigation }) => {
-  const { clientsSemanales } = useClients();
+const DiarioScreen = ({ navigation }) => {
+  const { clientsDiarios } = useClients();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Deudores Semanales</Text>
+      <Text style={styles.title}>Deudores Diarios</Text>
       <FlatList
-        data={clientsSemanales}
+        data={clientsDiarios}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -27,15 +27,16 @@ const SemanalScreen = ({ navigation }) => {
               if (item.balance === 0) {
                 Alert.alert("Alerta", "El cliente dio todos sus pagos");
               }
-              navigation.navigate("DetallesDeudorSemanal", {
-                // Cambia aquí
+
+              navigation.navigate("DetallesDeudorDiario", {
                 client: item,
-                tipoPago: "semanal",
+                tipoPago: "diario",
               });
             }}
             style={[
               styles.item,
               item.balance === 0 ? styles.itemCompleto : null,
+              // item.balance >= 1000 ? styles.itemSuperior : null,
             ]}
           >
             <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -57,12 +58,27 @@ const SemanalScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#fff" },
-  title: { fontSize: 24, fontWeight: "bold", marginBottom: 20 },
-  item: { padding: 15, borderBottomWidth: 1, borderBottomColor: "#ccc" },
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: "#fff",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  item: {
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
   itemCompleto: {
     backgroundColor: "#B4E380",
   },
+  itemSuperior: {
+    backgroundColor: "#FFEB55",
+  },
 });
 
-export default SemanalScreen;
+export default DiarioScreen;

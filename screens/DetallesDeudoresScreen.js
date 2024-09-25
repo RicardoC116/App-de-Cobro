@@ -8,10 +8,12 @@ import {
   StyleSheet,
   FlatList,
   Alert,
+  Platform,
 } from "react-native";
 
 import { formatearMonto } from "../components/dinero";
 import { useClients } from "../components/clientcontext";
+import Swal from "sweetalert2";
 
 const DetallesDeudorScreen = ({ route, navigation }) => {
   const { client, tipoPago } = route.params;
@@ -63,6 +65,40 @@ const DetallesDeudorScreen = ({ route, navigation }) => {
     navigation.goBack(); // Volver a la lista de clientes
   };
 
+  const Alertas = () => {
+    if (Platform.OS === "web") {
+      Swal.fire({
+        title: "Alerta",
+        text: "¿Estás seguro de introducir este monto?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Aceptar",
+        cancelButtonText: "Cancelar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          handlePayment();
+        }
+      });
+    } else {
+      Alert.alert(
+        "Alerta",
+        "¿Estás seguro de introducir este monto?",
+        [
+          {
+            text: "Cancelar",
+            onPress: () => console.log("Cancelar"),
+            style: "cancel",
+          },
+          {
+            text: "Aceptar",
+            onPress: () => handlePayment(),
+          },
+        ],
+        { cancelable: false }
+      );
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -99,26 +135,7 @@ const DetallesDeudorScreen = ({ route, navigation }) => {
       />
       <Button
         title="Registrar Pago"
-        onPress={() =>
-          Alert.alert(
-            "Alerta",
-            "¿Estas seguro de introducir este monto?",
-            [
-              {
-                text: "Cancelar",
-                onPress: () => console.log("Cancelar"),
-                style: "cancel",
-              },
-              {
-                text: "Aceptar",
-                onPress: () => handlePayment(),
-              },
-            ],
-            {
-              cancelable: false,
-            }
-          )
-        }
+        onPress={() => Alertas()} // Cambia showAlert a Alertas
       />
     </View>
   );

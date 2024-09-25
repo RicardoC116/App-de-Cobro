@@ -1,4 +1,3 @@
-// SemanalScreen.js
 import React from "react";
 import {
   View,
@@ -7,13 +6,28 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  Platform,
 } from "react-native";
+import Swal from "sweetalert2";
 import { useClients } from "../components/clientcontext"; // Importar el hook
 import { IconosPagos } from "../components/iconos";
 import { formatearMonto } from "../components/dinero";
 
 const SemanalScreen = ({ navigation }) => {
   const { clientsSemanales } = useClients();
+
+  const mostrarAlerta = () => {
+    // Renombrar la función
+    if (Platform.OS === "web") {
+      Swal.fire({
+        text: "El cliente dio todos sus pagos",
+        icon: "warning",
+        confirmButtonText: "Aceptar",
+      });
+    } else {
+      Alert.alert("Alerta", "El cliente dio todos sus pagos");
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -25,10 +39,9 @@ const SemanalScreen = ({ navigation }) => {
           <TouchableOpacity
             onPress={() => {
               if (item.balance === 0) {
-                Alert.alert("Alerta", "El cliente dio todos sus pagos");
+                mostrarAlerta(); // Cambia Alert() a mostrarAlerta()
               }
               navigation.navigate("DetallesDeudorSemanal", {
-                // Cambia aquí
                 client: item,
                 tipoPago: "semanal",
               });

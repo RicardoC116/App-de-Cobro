@@ -1,4 +1,3 @@
-// DiarioScreen.js
 import React from "react";
 import {
   View,
@@ -6,14 +5,29 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
+  Alert,
+  Platform, // Asegúrate de importar Platform
 } from "react-native";
+import Swal from "sweetalert2"; // Asegúrate de importar Swal
 import { useClients } from "../components/clientcontext";
 import { IconosPagos } from "../components/iconos";
-import { Alert } from "react-native";
 import { formatearMonto } from "../components/dinero";
 
 const DiarioScreen = ({ navigation }) => {
   const { clientsDiarios } = useClients();
+
+  const mostrarAlerta = () => {
+    // Renombrar la función
+    if (Platform.OS === "web") {
+      Swal.fire({
+        text: "El cliente dio todos sus pagos",
+        icon: "warning",
+        confirmButtonText: "Aceptar",
+      });
+    } else {
+      Alert.alert("Alerta", "El cliente dio todos sus pagos");
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -25,7 +39,7 @@ const DiarioScreen = ({ navigation }) => {
           <TouchableOpacity
             onPress={() => {
               if (item.balance === 0) {
-                Alert.alert("Alerta", "El cliente dio todos sus pagos");
+                mostrarAlerta(); // Cambia Alert() a mostrarAlerta()
               }
 
               navigation.navigate("DetallesDeudorDiario", {

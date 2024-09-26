@@ -15,6 +15,11 @@ export const DiarioIcon = ({ focused, color, size }) => {
   return <Ionicons name={iconName} size={size} color={color} />;
 };
 
+// Icono panel
+export const PanelIcon = ({ focused, color, size }) => {
+ return <MaterialIcons name="admin-panel-settings" size={size} color={color} />;
+};
+
 export const IconosPagos = (balance) => {
   if (balance === 0) {
     return <MaterialIcons name="paid" size={24} color="black" />;

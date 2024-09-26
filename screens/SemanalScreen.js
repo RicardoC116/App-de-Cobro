@@ -31,7 +31,7 @@ const SemanalScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Deudores Semanales</Text>
+      {/* <Text style={styles.title}>Deudores Semanales</Text> */}
       <FlatList
         data={clientsSemanales}
         keyExtractor={(item) => item.id}

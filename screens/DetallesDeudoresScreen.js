@@ -133,10 +133,7 @@ const DetallesDeudorScreen = ({ route, navigation }) => {
         onChangeText={setPago}
         keyboardType="numeric"
       />
-      <Button
-        title="Registrar Pago"
-        onPress={() => Alertas()} // Cambia showAlert a Alertas
-      />
+      <Button title="Registrar Pago" onPress={() => Alertas()} />
     </View>
   );
 };

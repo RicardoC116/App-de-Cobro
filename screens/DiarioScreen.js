@@ -31,7 +31,7 @@ const DiarioScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Deudores Diarios</Text>
+      {/* <Text style={styles.title}>Deudores Diarios</Text> */}
       <FlatList
         data={clientsDiarios}
         keyExtractor={(item) => item.id}

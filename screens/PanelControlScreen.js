@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import AgregarDeudor from "../components/AgregarDeudor";
 
 const PanelDeControl = () => {
   console.log("Panel de Control renderizado"); // Para depuración
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Hola que hace</Text>
-      {/* Aquí agregarás el contenido del panel, como la lista de deudores */}
+      <AgregarDeudor />
     </View>
   );
 };

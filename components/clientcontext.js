@@ -15,6 +15,15 @@ export const ClientProvider = ({ children }) => {
     { id: "2", name: "Ana Torres", amount: 400, balance: 400, payments: [] },
   ]);
 
+  // Función para agregar un nuevo cliente
+  const addClient = (tipo, newClient) => {
+    if (tipo === "diario") {
+      setClientsDiarios((prevClients) => [...prevClients, newClient]);
+    } else if (tipo === "semanal") {
+      setClientsSemanales((prevClients) => [...prevClients, newClient]);
+    }
+  };
+
   return (
     <ClientContext.Provider
       value={{
@@ -22,6 +31,7 @@ export const ClientProvider = ({ children }) => {
         setClientsDiarios,
         clientsSemanales,
         setClientsSemanales,
+        addClient, 
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import * as React from "react";
+import react, * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -16,6 +16,7 @@ import LoginScreen from "./screens/LoginScreen"; // Nueva pantalla de login
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+// Stak de diario
 function DiarioStack() {
   return (
     <Stack.Navigator>
@@ -44,6 +45,7 @@ function DiarioStack() {
   );
 }
 
+// Stak de semanal
 function SemanalStack() {
   return (
     <Stack.Navigator>
@@ -73,86 +75,92 @@ function SemanalStack() {
   );
 }
 
-function PanelControlStack({ isAuthenticated, setIsAuthenticated }) {
+// Stak de panel de control (sin el Login)
+function PanelControlStack() {
   return (
     <Stack.Navigator>
-      {isAuthenticated ? (
-        <Stack.Screen
-          name="Panel de Control"
-          component={PanelControlScreen}
-          options={{
-            headerTitle: () => (
-              <Text style={styles.headerTitle}>Panel de Control</Text>
-            ),
-          }}
-        />
-      ) : (
-        <Stack.Screen
-          name="Login"
-          options={{
-            headerTitle: () => (
-              <Text style={styles.headerTitle}>Iniciar Sesión</Text>
-            ),
-          }}
-        >
-          {(props) => (
-            <LoginScreen {...props} setIsAuthenticated={setIsAuthenticated} />
-          )}
-        </Stack.Screen>
-      )}
+      <Stack.Screen
+        name="Panel de Control"
+        component={PanelControlScreen}
+        options={{
+          headerTitle: () => (
+            <Text style={styles.headerTitle}>Panel de Control</Text>
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 }
 
+// Estructura principal
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [userType, setUserType] = react.useState(null);
 
   return (
     <ClientProvider>
       <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              if (route.name === "Diarios") {
-                return (
-                  <DiarioIcon focused={focused} color={color} size={size} />
-                );
-              } else if (route.name === "Semanales") {
-                return (
-                  <SemanalIcon focused={focused} color={color} size={size} />
-                );
-              } else if (route.name === "PanelControlTab") {
-                return (
-                  <PanelIcon focused={focused} color={color} size={size} />
-                );
-              }
-            },
-            tabBarActiveTintColor: "purple",
-            tabBarInactiveTintColor: "gray",
-          })}
-        >
-          <Tab.Screen
-            name="Diarios"
-            component={DiarioStack}
-            options={{ title: "Cobros Diarios", headerShown: false }}
-          />
-          <Tab.Screen
-            name="Semanales"
-            component={SemanalStack}
-            options={{ title: "Cobros Semanales", headerShown: false }}
-          />
-          <Tab.Screen
-            name="PanelControlTab"
-            options={{ title: "Panel de Control", headerShown: false }}
+        {!isAuthenticated ? (
+          // Stack principal que muestra el Login si no está autenticado
+          <Stack.Navigator>
+            <Stack.Screen name="Login">
+              {(props) => (
+                <LoginScreen
+                  {...props}
+                  setIsAuthenticated={setIsAuthenticated}
+                  setUserType={setUserType}
+                />
+              )}
+            </Stack.Screen>
+          </Stack.Navigator>
+        ) : (
+          // Si está autenticado, muestra las Tabs
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                if (route.name === "Diarios") {
+                  return (
+                    <DiarioIcon focused={focused} color={color} size={size} />
+                  );
+                } else if (route.name === "Semanales") {
+                  return (
+                    <SemanalIcon focused={focused} color={color} size={size} />
+                  );
+                } else if (route.name === "PanelControlTab") {
+                  return (
+                    <PanelIcon focused={focused} color={color} size={size} />
+                  );
+                }
+              },
+              tabBarActiveTintColor: "purple",
+              tabBarInactiveTintColor: "gray",
+            })}
           >
-            {() => (
-              <PanelControlStack
-                isAuthenticated={isAuthenticated}
-                setIsAuthenticated={setIsAuthenticated}
-              />
+            <Tab.Screen
+              name="Diarios"
+              component={DiarioStack}
+              options={{ title: "Cobros Diarios", headerShown: false }}
+            />
+            <Tab.Screen
+              name="Semanales"
+              component={SemanalStack}
+              options={{ title: "Cobros Semanales", headerShown: false }}
+            />
+            {userType === "admin" && (
+              <Tab.Screen
+                name="PanelControlTab"
+                options={{ title: "Panel de Control", headerShown: false }}
+              >
+                {() => (
+                  <PanelControlStack
+                    isAuthenticated={isAuthenticated}
+                    setIsAuthenticated={setIsAuthenticated}
+                  />
+                )}
+              </Tab.Screen>
             )}
-          </Tab.Screen>
-        </Tab.Navigator>
+          </Tab.Navigator>
+        )}
       </NavigationContainer>
     </ClientProvider>
   );

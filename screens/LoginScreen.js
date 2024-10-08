@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
 
-const LoginScreen = ({ navigation, setIsAuthenticated }) => {
+const LoginScreen = ({ navigation, setIsAuthenticated, setUserType }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    // Aquí puedes validar las credenciales o hacer una autenticación local
     if (username === "admin" && password === "1234") {
-      setIsAuthenticated(true); // Cambiar el estado de autenticación
-      Alert.alert("Login exitoso", "Bienvenido al Panel de Control");
-      navigation.navigate("PanelControlTab"); // Navega al tab correspondiente
+      setIsAuthenticated(true);
+      setUserType("admin");
+      console.log("Logueado con el admin");
+    } else if (username === "cliente" && password === "1234") {
+      setIsAuthenticated(true);
+      setUserType("cliente");
+      console.log("Logueado con el cliente");
     } else {
       Alert.alert("Error", "Usuario o contraseña incorrectos");
     }
@@ -32,7 +35,11 @@ const LoginScreen = ({ navigation, setIsAuthenticated }) => {
         value={password}
         onChangeText={setPassword}
       />
-      <Button title="Login" onPress={handleLogin} />
+      <Button
+        color={"#7e4f96"}
+        title="Login"
+        onPress={handleLogin}
+      />
     </View>
   );
 };
@@ -44,7 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   title: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: "bold",
     marginBottom: 20,
     marginTop: 20,
@@ -56,6 +63,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 20,
     paddingHorizontal: 10,
+    borderRadius: 10,
   },
 });
 

@@ -3,6 +3,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import Icon from "react-native-vector-icons/FontAwesome"; // Importa el icono
 
 // Ícono para la pestaña Semanal
 export const SemanalIcon = ({ focused, color, size }) => {
@@ -17,7 +18,9 @@ export const DiarioIcon = ({ focused, color, size }) => {
 
 // Icono panel
 export const PanelIcon = ({ focused, color, size }) => {
- return <MaterialIcons name="admin-panel-settings" size={size} color={color} />;
+  return (
+    <MaterialIcons name="admin-panel-settings" size={size} color={color} />
+  );
 };
 
 export const IconosPagos = (balance) => {
@@ -27,4 +30,12 @@ export const IconosPagos = (balance) => {
   if (balance > 0) {
     return <Feather name="alert-octagon" size={24} color="black" />;
   }
+};
+
+export const ClienteIcono = ({ focused, color, size }) => {
+  return <Icon name="user-plus" color={color} size={size} />;
+};
+
+export const DeudoresIcono = ({ focused, color, size }) => {
+  return <Icon name="credit-card" color={color} size={size} />;
 };

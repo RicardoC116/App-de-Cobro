@@ -25,7 +25,8 @@
     "react-native-screens": "3.31.1",
     "react-native-web": "^0.19.12",
     "react-native-web-picker": "^0.1.0",
-    "sweetalert2": "^11.14.1"
+    "sweetalert2": "^11.14.1",
+    "@react-native-async-storage/async-storage": "1.23.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

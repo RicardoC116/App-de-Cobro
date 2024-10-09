@@ -12,6 +12,8 @@ import SemanalScreen from "./screens/SemanalScreen";
 import DetallesDeudorScreen from "./screens/DetallesDeudoresScreen";
 import PanelControlScreen from "./screens/PanelControlScreen";
 import LoginScreen from "./screens/LoginScreen"; // Nueva pantalla de login
+import AgregarCliente from "./components/AgregarCliente";
+import AgregarDeudor from "./components/AgregarDeudor";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -85,6 +87,24 @@ function PanelControlStack() {
         options={{
           headerTitle: () => (
             <Text style={styles.headerTitle}>Panel de Control</Text>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="AgregarClienteScreen"
+        component={AgregarCliente}
+        options={{
+          headerTitle: () => (
+            <Text style={styles.headerTitle}>Agregar Usuario</Text>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="AgregarDeudorScreen"
+        component={AgregarDeudor}
+        options={{
+          headerTitle: () => (
+            <Text style={styles.headerTitle}>Agregar Cliente</Text>
           ),
         }}
       />
@@ -170,6 +190,5 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24, // Tamaño del texto
     fontWeight: "bold", // Negrita
-    // color: "purple", // Color del texto
   },
 });

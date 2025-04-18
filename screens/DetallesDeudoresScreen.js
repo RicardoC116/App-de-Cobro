@@ -139,9 +139,20 @@ const DetallesDeudorScreen = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#fff" },
-  title: { fontSize: 24, fontWeight: "bold", marginBottom: 20 },
-  subtitle: { fontSize: 18, marginTop: 20 },
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: "#fff",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  subtitle: {
+    fontSize: 18,
+    marginTop: 20,
+  },
   input: {
     height: 40,
     borderColor: "#ccc",

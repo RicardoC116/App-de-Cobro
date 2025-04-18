@@ -10,10 +10,6 @@ const LoginScreen = ({ navigation, setIsAuthenticated, setUserType }) => {
       setIsAuthenticated(true);
       setUserType("admin");
       console.log("Logueado con el admin");
-    } else if (username === "cliente" && password === "1234") {
-      setIsAuthenticated(true);
-      setUserType("cliente");
-      console.log("Logueado con el cliente");
     } else {
       Alert.alert("Error", "Usuario o contraseña incorrectos");
     }
@@ -35,11 +31,7 @@ const LoginScreen = ({ navigation, setIsAuthenticated, setUserType }) => {
         value={password}
         onChangeText={setPassword}
       />
-      <Button
-        color={"#7e4f96"}
-        title="Login"
-        onPress={handleLogin}
-      />
+      <Button color={"#7e4f96"} title="Login" onPress={handleLogin} />
     </View>
   );
 };

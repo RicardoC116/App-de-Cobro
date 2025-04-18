@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SemanalIcon, DiarioIcon, PanelIcon } from "./components/iconos";
 import { ClientProvider } from "./components/clientcontext";
-import { Text, StyleSheet } from "react-native"; // Asegúrate de importar Text y StyleSheet
+import { Text, StyleSheet } from "react-native";
 
 // Pantallas importadas
 import DiarioScreen from "./screens/DiarioScreen";

@@ -7,7 +7,7 @@ const AgregarClienteScreen = () => {
 
   const handleSubmit = () => {
     if (nombre && contraseña) {
-      // Lógica para agregar cliente
+
       alert("Cliente agregado.");
       setNombre("");
       setContraseña("");
